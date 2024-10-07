@@ -7,6 +7,8 @@ import com.scaler.ecomproductservice.exceptions.ProductNotFoundException;
 
 public interface ProductService
 {
+    public ProductResponseDTO getProductByTitle(String title) throws ProductNotFoundException;
+
     public ProductResponseDTO getProduct(int productId) throws ProductNotFoundException;
 
     public ProductListResponseDTO getProducts();

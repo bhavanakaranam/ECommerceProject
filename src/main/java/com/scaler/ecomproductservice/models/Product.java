@@ -1,10 +1,7 @@
 package com.scaler.ecomproductservice.models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +21,7 @@ public class Product extends BaseModel
     private Price price;
 
     @ManyToOne
+    @JoinColumn(name = "ecom_category_id")
     private Category category;
 
     private String image;

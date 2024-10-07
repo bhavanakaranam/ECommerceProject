@@ -16,7 +16,7 @@ public class ProductController
 {
     private ProductService productService;
 
-    public ProductController(@Qualifier("fakeProductService") ProductService productService)
+    public ProductController(@Qualifier("productService") ProductService productService)
     {
         this.productService = productService;
     }
@@ -25,6 +25,13 @@ public class ProductController
     public ResponseEntity getProductById(@PathVariable("id") int productId) throws ProductNotFoundException
     {
         ProductResponseDTO response = productService.getProduct(productId);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/products/title/{title}")
+    public ResponseEntity getProductByTitle(@PathVariable("title") String title) throws ProductNotFoundException
+    {
+        ProductResponseDTO response = productService.getProductByTitle(title);
         return ResponseEntity.ok(response);
     }
 

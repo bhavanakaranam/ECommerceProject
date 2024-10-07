@@ -9,7 +9,7 @@ import java.util.UUID;
 @Setter
 public class ProductResponseDTO
 {
-    private int id;
+    private UUID id;
 
     private String title;
 

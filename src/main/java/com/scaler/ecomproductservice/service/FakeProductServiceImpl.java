@@ -31,6 +31,11 @@ public class FakeProductServiceImpl implements ProductService
     }
 
     @Override
+    public ProductResponseDTO getProductByTitle(String title) throws ProductNotFoundException {
+        return null;
+    }
+
+    @Override
     public ProductResponseDTO getProduct(int productId) throws ProductNotFoundException {
         FakeStoreProductResponseDTO response = this.apiClient.getProduct(productId);
         if(isNull(response))

@@ -1,5 +1,8 @@
 package com.scaler.ecomproductservice.service;
 
+import com.scaler.ecomproductservice.cascade_fetchtypes_modes_demo.Author;
+import com.scaler.ecomproductservice.cascade_fetchtypes_modes_demo.AuthorRepository;
+import com.scaler.ecomproductservice.cascade_fetchtypes_modes_demo.Book;
 import com.scaler.ecomproductservice.models.Category;
 import com.scaler.ecomproductservice.models.Order;
 import com.scaler.ecomproductservice.models.Price;
@@ -29,12 +32,15 @@ public class InitServiceImpl implements InitService
 
     private PriceRepository priceRepository;
 
-    public InitServiceImpl(ProductRepository productRepository, OrderRepository orderRepository,CategoryRepository categoryRepository,PriceRepository priceRepository)
+    private AuthorRepository authorRepository;
+
+    public InitServiceImpl(ProductRepository productRepository, OrderRepository orderRepository,CategoryRepository categoryRepository,PriceRepository priceRepository, AuthorRepository authorRepository)
     {
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
         this.categoryRepository = categoryRepository;
         this.priceRepository = priceRepository;
+        this.authorRepository = authorRepository;
     }
 
     @Override
@@ -92,5 +98,31 @@ public class InitServiceImpl implements InitService
         order.setProducts(List.of(iphone, handBag));
 
         this.orderRepository.save(order);
+
+        Author author1 = new Author();
+        author1.setName("Author1");
+
+        Book book1 = new Book();
+        book1.setTitle("Book1");
+        book1.setAuthor(author1);
+
+        Book book2 = new Book();
+        book2.setTitle("Book2");
+        book2.setAuthor(author1);
+
+        Book book3 = new Book();
+        book3.setTitle("Book3");
+        book3.setAuthor(author1);
+
+        author1.setBooks(List.of(book1, book2, book3));
+        this.authorRepository.save(author1);
+
+        Author authorData = this.authorRepository.findById(1);
+        // bookRepo.findByAuthor_Id - In case of LAZY Initialization
+        // authorData.setBooks
+        List<Book> books = authorData.getBooks();
+        String name = authorData.getName();
+        System.out.println(name);
+
     }
 }

@@ -1,9 +1,9 @@
 package com.scaler.ecomproductservice.mapper;
 
-import com.scaler.ecomproductservice.dto.FakeStoreProductRequestDTO;
-import com.scaler.ecomproductservice.dto.FakeStoreProductResponseDTO;
-import com.scaler.ecomproductservice.dto.ProductRequestDTO;
-import com.scaler.ecomproductservice.dto.ProductResponseDTO;
+import com.scaler.ecomproductservice.dto.*;
+import com.scaler.ecomproductservice.models.Product;
+
+import java.util.List;
 
 public class ProductMapper
 {
@@ -27,6 +27,31 @@ public class ProductMapper
         productResponseDTO.setPrice(fakeStoreProductResponseDTO.getPrice());
         productResponseDTO.setImage(fakeStoreProductResponseDTO.getImageURL());
         productResponseDTO.setId(fakeStoreProductResponseDTO.getId());
+        return productResponseDTO;
+    }
+
+    public static ProductListResponseDTO convertProductsToProductListResponseDTO(List<Product> productList)
+    {
+        ProductListResponseDTO productListResponseDTO = new ProductListResponseDTO();
+        for(Product product: productList)
+        {
+            ProductResponseDTO productResponseDTO = ProductMapper.convertProductToProductResponseDTO(product);
+            productListResponseDTO.getProducts().add(productResponseDTO);
+        }
+
+        return productListResponseDTO;
+    }
+
+    public static ProductResponseDTO convertProductToProductResponseDTO(Product product)
+    {
+        ProductResponseDTO productResponseDTO = new ProductResponseDTO();
+        productResponseDTO.setId(product.getId());
+        productResponseDTO.setCategory(product.getCategory().getCategoryName());
+        productResponseDTO.setPrice(product.getPrice().getAmount());
+        productResponseDTO.setImage(product.getImage());
+        productResponseDTO.setTitle(product.getTitle());
+        productResponseDTO.setDescription(product.getDescription());
+
         return productResponseDTO;
     }
 }
