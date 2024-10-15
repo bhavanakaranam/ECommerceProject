@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 import java.util.List;
+import java.util.UUID;
 
 import static com.scaler.ecomproductservice.mapper.ProductMapper.fakeStoreProductResponseDTOtoProductResponseDTO;
 import static com.scaler.ecomproductservice.mapper.ProductMapper.productRequestDTOtoFakeStoreProductRequestDTO;
@@ -36,7 +37,7 @@ public class FakeProductServiceImpl implements ProductService
     }
 
     @Override
-    public ProductResponseDTO getProduct(int productId) throws ProductNotFoundException {
+    public ProductResponseDTO getProduct(UUID productId) throws ProductNotFoundException {
         FakeStoreProductResponseDTO response = this.apiClient.getProduct(productId);
         if(isNull(response))
             throw new ProductNotFoundException("Product with id "+productId+" not found.");
@@ -63,12 +64,12 @@ public class FakeProductServiceImpl implements ProductService
     }
 
     @Override
-    public boolean deleteProduct(int productId) {
+    public boolean deleteProduct(UUID productId) throws ProductNotFoundException {
         return this.apiClient.deleteProduct(productId);
     }
 
     @Override
-    public ProductResponseDTO updateProduct(ProductRequestDTO productRequestDTO, int productId)
+    public ProductResponseDTO updateProduct(UUID productId, ProductRequestDTO productRequestDTO)throws ProductNotFoundException
     {
         return null;
 

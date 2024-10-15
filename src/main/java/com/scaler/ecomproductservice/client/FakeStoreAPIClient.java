@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static com.scaler.ecomproductservice.mapper.ProductMapper.fakeStoreProductResponseDTOtoProductResponseDTO;
 
@@ -39,7 +40,7 @@ public class FakeStoreAPIClient implements ProductAPIClient
     }
 
     @Override
-    public FakeStoreProductResponseDTO getProduct(int productId) {
+    public FakeStoreProductResponseDTO getProduct(UUID productId) {
         String url = this.fakeStoreURL+ this.fakeStoreProductsAPIPath + "/" + productId;
         RestTemplate restTemplate = this.restTemplateBuilder.build();
         ResponseEntity<FakeStoreProductResponseDTO> productResponse = restTemplate.getForEntity(
@@ -64,7 +65,7 @@ public class FakeStoreAPIClient implements ProductAPIClient
     }
 
     @Override
-    public boolean deleteProduct(int productId) {
+    public boolean deleteProduct(UUID productId) {
         String url = this.fakeStoreURL+ this.fakeStoreProductsAPIPath + "/" + productId;
         RestTemplate restTemplate = this.restTemplateBuilder.build();
         restTemplate.delete(url);

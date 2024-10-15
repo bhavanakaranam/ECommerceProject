@@ -1,6 +1,7 @@
 package com.scaler.ecomproductservice.mapper;
 
 import com.scaler.ecomproductservice.dto.*;
+import com.scaler.ecomproductservice.models.Price;
 import com.scaler.ecomproductservice.models.Product;
 
 import java.util.List;
@@ -53,5 +54,20 @@ public class ProductMapper
         productResponseDTO.setDescription(product.getDescription());
 
         return productResponseDTO;
+    }
+
+    public static Product convertProductRequestDTOToProduct(ProductRequestDTO productRequestDTO)
+    {
+        Product product = new Product();
+        product.setTitle(productRequestDTO.getTitle());
+        product.setDescription(productRequestDTO.getDescription());
+        Price price = new Price();
+        price.setCurrency("INR");
+        price.setDiscount(0);
+        price.setAmount(productRequestDTO.getPrice());
+        product.setPrice(price);
+        product.setImage(productRequestDTO.getImage());
+
+        return product;
     }
 }

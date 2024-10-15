@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 public class ProductController
 {
@@ -22,7 +24,7 @@ public class ProductController
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity getProductById(@PathVariable("id") int productId) throws ProductNotFoundException
+    public ResponseEntity getProductById(@PathVariable("id") UUID productId) throws ProductNotFoundException
     {
         ProductResponseDTO response = productService.getProduct(productId);
         return ResponseEntity.ok(response);
@@ -50,7 +52,7 @@ public class ProductController
     }
 
     @DeleteMapping("/deleteProduct/{id}")
-    public boolean deleteProduct(@PathVariable("id") int id)
+    public boolean deleteProduct(@PathVariable("id") UUID id) throws ProductNotFoundException
     {
         this.productService.deleteProduct(id);
         return true;
