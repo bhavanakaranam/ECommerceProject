@@ -14,9 +14,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -40,15 +38,15 @@ public class CategoryController
         return ResponseEntity.ok(categoryResponseDTO);
     }
 
-    @GetMapping("/category")
+    @GetMapping("/category/")
     private ResponseEntity findAllCategories()
     {
         CategoryListResponseDTO categoryList = this.categoryService.getAllCategories();
         return ResponseEntity.ok(categoryList);
     }
 
-    @PostMapping("/category/createcategory")
-    private ResponseEntity createCategory(CategoryRequestDTO categoryRequestDTO) throws InvalidCategoryNameException, CouldNotCreateCategoryException
+    @PostMapping("/category/createCategory")
+    private ResponseEntity createCategory(@RequestBody CategoryRequestDTO categoryRequestDTO) throws InvalidCategoryNameException, CouldNotCreateCategoryException
     {
         if(categoryRequestDTO.getCategoryName() == null || categoryRequestDTO.getCategoryName().isEmpty())
         {
@@ -66,8 +64,17 @@ public class CategoryController
         responseDTO.setCategoryCreated(true);
 
         return ResponseEntity.ok(responseDTO);
-
-
     }
 
+    @DeleteMapping("/category/deleteCategory/{id}")
+    private void deleteCategory(@PathVariable("id") UUID id)
+    {
+        this.categoryService.deleteCategory(id);
+    }
+
+    @PatchMapping("/category/updateCategory/{id}")
+    private CategoryResponseDTO updateCategory(@PathVariable("id") UUID id, @RequestBody CategoryRequestDTO categoryRequestDTO) throws CategoryNotFoundException
+    {
+       return this.categoryService.updateCategory(id, categoryRequestDTO);
+    }
 }
