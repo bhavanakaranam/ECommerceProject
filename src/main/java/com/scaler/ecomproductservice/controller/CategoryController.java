@@ -31,7 +31,7 @@ public class CategoryController
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/categories/{id}")
+    @GetMapping("/category/{id}")
     public ResponseEntity findCategoryById(@PathVariable("id") UUID id) throws CategoryNotFoundException
     {
         CategoryResponseDTO categoryResponseDTO = this.categoryService.findCategoryById(id);
@@ -67,14 +67,14 @@ public class CategoryController
     }
 
     @DeleteMapping("/category/deleteCategory/{id}")
-    private void deleteCategory(@PathVariable("id") UUID id)
+    private ResponseEntity deleteCategory(@PathVariable("id") UUID id)
     {
-        this.categoryService.deleteCategory(id);
+        return ResponseEntity.ok(this.categoryService.deleteCategory(id));
     }
 
     @PatchMapping("/category/updateCategory/{id}")
-    private CategoryResponseDTO updateCategory(@PathVariable("id") UUID id, @RequestBody CategoryRequestDTO categoryRequestDTO) throws CategoryNotFoundException
+    private ResponseEntity updateCategory(@PathVariable("id") UUID id, @RequestBody CategoryRequestDTO categoryRequestDTO) throws CategoryNotFoundException
     {
-       return this.categoryService.updateCategory(id, categoryRequestDTO);
+       return ResponseEntity.ok(this.categoryService.updateCategory(id, categoryRequestDTO));
     }
 }

@@ -15,9 +15,9 @@ public interface ProductRepository extends JpaRepository<Product, UUID>
 
     Optional<Product> findById(UUID id);
 
-    Product findByTtileAndDescription(String ttile, String description);
+    Product findByTitleAndDescription(String ttile, String description);
 
-    Product findByTtileOrDescription(String ttile, String description);
+    Product findByTitleOrDescription(String ttile, String description);
 
     @Query(value = CustomQueries.FINDBYTITLELIKE, nativeQuery = true)
     Product findByTitleLike(String title);

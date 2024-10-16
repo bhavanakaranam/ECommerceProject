@@ -53,9 +53,12 @@ public class CategoryService
 
     }
 
-    public void deleteCategory(UUID id)
+    public boolean deleteCategory(UUID id)
     {
-        this.categoryRepository.deleteById(id);
+        Optional<Category> category = this.categoryRepository.findById(id);
+        if(category.isPresent())
+            this.categoryRepository.delete(category.get());
+        return true;
     }
 
     public CategoryResponseDTO updateCategory(UUID id, CategoryRequestDTO categoryRequestDTO) throws CategoryNotFoundException

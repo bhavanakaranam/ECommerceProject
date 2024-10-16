@@ -57,7 +57,7 @@ public class ProductServiceImpl implements ProductService
     @Override
     public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO)
     {
-        Category category = this.categoryRepository.findByName(productRequestDTO.getCategory());
+        Category category = this.categoryRepository.findByCategoryName(productRequestDTO.getCategory());
         Product product = ProductMapper.convertProductRequestDTOToProduct(productRequestDTO);
         product.setCategory(category);
         Product savedProduct = this.productRepository.save(product);

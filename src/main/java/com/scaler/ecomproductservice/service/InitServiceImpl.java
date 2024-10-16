@@ -52,6 +52,11 @@ public class InitServiceImpl implements InitService
         // save the category to repository
         this.categoryRepository.save(electronics);
 
+        Category clothing = new Category();
+        clothing.setCategoryName("CLOTHING");
+
+        this.categoryRepository.save(clothing);
+
         Category apparelAccesories = new Category();
         apparelAccesories.setCategoryName("APPAREL ACCESORIES");
 
