@@ -44,17 +44,23 @@ public class ProductController
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/products")
-    public ResponseEntity createProduct(ProductRequestDTO productRequestDTO)
+    @PostMapping("/products/createProduct")
+    public ResponseEntity createProduct(@RequestBody ProductRequestDTO productRequestDTO)
     {
         ProductResponseDTO responseDTO = this.productService.createProduct(productRequestDTO);
         return ResponseEntity.ok(responseDTO);
     }
 
-    @DeleteMapping("/deleteProduct/{id}")
-    public boolean deleteProduct(@PathVariable("id") UUID id) throws ProductNotFoundException
+    @DeleteMapping("/products/deleteProduct/{id}")
+    public ResponseEntity deleteProduct(@PathVariable("id") UUID id) throws ProductNotFoundException
     {
-        this.productService.deleteProduct(id);
-        return true;
+        return ResponseEntity.ok(this.productService.deleteProduct(id));
+    }
+
+    @PatchMapping("/products/updateProduct/{id}")
+    public ResponseEntity updateProduct(@PathVariable("id") UUID id, @RequestBody ProductRequestDTO productRequestDTO) throws ProductNotFoundException
+    {
+        ProductResponseDTO responseDTO = this.productService.updateProduct(id, productRequestDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 }

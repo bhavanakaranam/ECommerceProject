@@ -20,7 +20,7 @@ public class Product extends BaseModel
     @OneToOne
     private Price price;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "ecom_category_id")
     private Category category;
 
