@@ -3,6 +3,7 @@ package com.scaler.ecomproductservice.controller;
 import com.scaler.ecomproductservice.dto.ProductListResponseDTO;
 import com.scaler.ecomproductservice.dto.ProductRequestDTO;
 import com.scaler.ecomproductservice.dto.ProductResponseDTO;
+import com.scaler.ecomproductservice.exceptions.InvalidTitleException;
 import com.scaler.ecomproductservice.exceptions.ProductNotFoundException;
 import com.scaler.ecomproductservice.models.Product;
 import com.scaler.ecomproductservice.service.ProductService;
@@ -31,7 +32,7 @@ public class ProductController
     }
 
     @GetMapping("/products/title/{title}")
-    public ResponseEntity getProductByTitle(@PathVariable("title") String title) throws ProductNotFoundException
+    public ResponseEntity getProductByTitle(@PathVariable("title") String title) throws ProductNotFoundException, InvalidTitleException
     {
         ProductResponseDTO response = productService.getProductByTitle(title);
         return ResponseEntity.ok(response);
